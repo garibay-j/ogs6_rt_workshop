@@ -1,3 +1,51 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <OpenGeoSysProject>
+	<meshes>
+		<mesh>meshes/2Dmesh.vtu</mesh>
+		<mesh>meshes/2Dmesh_left.vtu</mesh>
+		<mesh>meshes/2Dmesh_right.vtu</mesh>
+	</meshes>
+	<processes>
+		<process>
+			<name>hc</name>
+			<type>ComponentTransport</type>
+			<integration_order>2</integration_order>
+			<coupling_scheme>staggered</coupling_scheme>
+			<process_variables>
+				<concentration>Tr</concentration>
+				<pressure>pressure</pressure>
+			</process_variables>
+			<specific_body_force>0 0</specific_body_force>
+			<secondary_variables>
+				<secondary_variable internal_name="darcy_velocity" output_name="darcy_velocity" />
+			</secondary_variables>
+		</process>
+	</processes>
+    <parameters>
+        <parameter>
+            <name>p0</name>
+            <type>Constant</type>
+            <values>101325</values>
+        </parameter>
+        <parameter>
+            <name>p_dirichlet_left</name>
+            <type>Constant</type>
+            <values>101325</values>
+        </parameter>
+        <parameter>
+            <name>p_neumann_right</name>
+            <type>Constant</type>
+            <values>-1e-3</values>
+        </parameter>
+        <parameter>
+            <name>c0</name>
+            <type>Constant</type>
+            <values>1e-10</values>
+        </parameter>
+        <parameter>
+            <name>c_spatial_Tr</name>
+            <type>Constant</type>
+            <values>1e-4</values>
+        </parameter>
+    </parameters>
 </OpenGeoSysProject>
