@@ -276,7 +276,7 @@
         </processes>
         <output>
             <type>VTK</type>
-            <prefix>1d_isofrac_flag_formula</prefix>
+            <prefix>output_isofrac</prefix>
             <suffix>_ts_{:timestep}_t_{:time}</suffix>
             <timesteps>
                 <pair>
