@@ -193,7 +193,20 @@
             <type>Constant</type>
             <values>1e-4</values>
         </parameter>
+        <parameter>
+            <name>c_temporal_Tr</name>
+            <type>CurveScaled</type>
+            <curve>c_temporal_default</curve>
+            <parameter>c_spatial_Tr</parameter>
+        </parameter>
     </parameters>
+    <curves>
+        <curve>
+            <name>c_temporal_default</name>
+            <coords>0 1440 1440.001 72000</coords>
+            <values>1 1 0 0</values>
+        </curve>
+    </curves>
     <process_variables>
 		<!-- convergence criterion for pressure -->
         <process_variable>
@@ -224,7 +237,7 @@
                 <boundary_condition>
                     <mesh>2Dmesh_left</mesh>
                     <type>Dirichlet</type>
-                    <parameter>c_spatial_Tr</parameter>
+                    <parameter>c_temporal_Tr</parameter>
                 </boundary_condition>
             </boundary_conditions>
         </process_variable>

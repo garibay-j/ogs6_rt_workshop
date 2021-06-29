@@ -181,7 +181,7 @@
         <parameter>
             <name>p_neumann_right</name>
             <type>Constant</type>
-            <values>-1e-3</values>
+            <values>0</values>
         </parameter>
         <parameter>
             <name>c0</name>

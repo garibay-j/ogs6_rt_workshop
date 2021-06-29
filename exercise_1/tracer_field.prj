@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <OpenGeoSysProject>
 	<meshes>
-		<mesh>meshes/2Dmesh.vtu</mesh>
+		<mesh>meshes/2Dmesh_field.vtu</mesh>
 		<mesh>meshes/2Dmesh_left.vtu</mesh>
 		<mesh>meshes/2Dmesh_right.vtu</mesh>
 	</meshes>
@@ -185,8 +185,8 @@
         </parameter>
         <parameter>
             <name>c0</name>
-            <type>Constant</type>
-            <values>1e-10</values>
+            <type>MeshNode</type>
+            <field_name>Tr</field_name>
         </parameter>
         <parameter>
             <name>c_spatial_Tr</name>

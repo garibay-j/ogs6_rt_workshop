@@ -13,6 +13,7 @@
 			<coupling_scheme>staggered</coupling_scheme>
 			<process_variables>
 				<concentration>Tr</concentration>
+				<concentration>Tr2</concentration>
 				<pressure>pressure</pressure>
 			</process_variables>
 			<specific_body_force>0 0</specific_body_force>
@@ -29,6 +30,26 @@
                     <components>
                         <component>
                             <name>Tr</name>
+                            <properties>
+                                <property>
+                                    <name>pore_diffusion</name>
+                                    <type>Constant</type>
+                                    <value>1e-9</value>
+                                </property>
+                                <property>
+                                    <name>retardation_factor</name>
+                                    <type>Constant</type>
+                                    <value>1</value>
+                                </property>
+                                <property>
+                                    <name>decay_rate</name>
+                                    <type>Constant</type>
+                                    <value>0</value>
+                                </property>
+                            </properties>
+                        </component>
+                        <component>
+                            <name>Tr2</name>
                             <properties>
                                 <property>
                                     <name>pore_diffusion</name>
@@ -102,6 +123,12 @@
                     <norm_type>NORM2</norm_type>
                     <reltol>1e-14</reltol>
                 </convergence_criterion>
+                <!-- convergence criterion for the second process (Tr2) -->
+                <convergence_criterion>
+                    <type>DeltaX</type>
+                    <norm_type>NORM2</norm_type>
+                    <reltol>1e-14</reltol>
+                </convergence_criterion>
             </convergence_criteria>
         </global_process_coupling>
         <processes>
@@ -151,6 +178,29 @@
                     </timesteps>
                 </time_stepping>
             </process>
+            <!-- convergence criterion for component transport equation (Tr2) -->
+            <process ref="hc">
+                <nonlinear_solver>basic_picard</nonlinear_solver>
+                <convergence_criterion>
+                    <type>DeltaX</type>
+                    <norm_type>NORM2</norm_type>
+                    <reltol>1e-14</reltol>
+                </convergence_criterion>
+                <time_discretization>
+                    <type>BackwardEuler</type>
+                </time_discretization>
+                <time_stepping>
+                    <type>FixedTimeStepping</type>
+                    <t_initial>0.0</t_initial>
+                    <t_end>72000</t_end>
+                    <timesteps>
+                        <pair>
+                            <repeat>100</repeat>
+                            <delta_t>720</delta_t>
+                        </pair>
+                    </timesteps>
+                </time_stepping>
+            </process>
         </processes>
         <output>
             <type>VTK</type>
@@ -163,6 +213,7 @@
             </timesteps>
             <variables>
                 <variable>Tr</variable>
+				<variable>Tr2</variable>
                 <variable>pressure</variable>
             </variables>
         </output>
@@ -217,6 +268,20 @@
 		<!-- convergence criterion for component transport equation (Tr) -->
         <process_variable>
             <name>Tr</name>
+            <components>1</components>
+            <order>1</order>
+            <initial_condition>c0</initial_condition>
+            <boundary_conditions>
+                <boundary_condition>
+                    <mesh>2Dmesh_left</mesh>
+                    <type>Dirichlet</type>
+                    <parameter>c_spatial_Tr</parameter>
+                </boundary_condition>
+            </boundary_conditions>
+        </process_variable>
+		<!-- convergence criterion for component transport equation (Tr2) -->
+        <process_variable>
+            <name>Tr2</name>
             <components>1</components>
             <order>1</order>
             <initial_condition>c0</initial_condition>
