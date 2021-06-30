@@ -441,6 +441,74 @@
             </variables>
         </output>
     </time_loop>
+    <chemical_system chemical_solver="Phreeqc">
+        <mesh>RadionuclideSorption_ReactiveDomain</mesh>
+        <database>PSINA_12_07_110615_DAV_s_hzdr.dat</database>
+        <solution>
+            <temperature>25</temperature>
+            <pressure>1</pressure>
+            <pe>4</pe>
+            <components>
+                <component>Na</component>
+                <component>Cl</component>
+                <component>Ca</component>
+                <component>C(4)</component>
+                <!--Radionuclides-->
+                <component>U(6)</component>
+            </components>
+        </solution>
+        <surface>
+            <site>
+                <!--Qz  = Mineral phase: Quartz, amorphous Silica-->
+		        <name>QzOH</name>
+                <site_density>2.31</site_density>
+                <specific_surface_area>0.007</specific_surface_area>
+                <mass>9010</mass>
+            </site>
+            <site>
+                <!--Alb = Mineral group: Feldspar (albite)-->
+		        <name>AlbOH</name>
+                <site_density>2.31</site_density>
+                <specific_surface_area>0.21</specific_surface_area>
+                <mass>1060</mass>
+            </site>
+            <site>
+                <!--Mus  = Mineral group: Mica (muscovite)-->
+		        <name>MusOH</name>
+                <site_density>2.31</site_density>
+                <specific_surface_area>1.72</specific_surface_area>
+                <mass>53</mass>
+            </site>
+            <site>
+                <!--Hem  = Mineral group: Fe(III)-oxids/-hydroxids (hematite)-->
+		        <name>HemOH</name>
+                <site_density>2.31</site_density>
+                <specific_surface_area>0.26</specific_surface_area>
+                <mass>53</mass>
+            </site>
+            <site>
+                <!--Gibb  = Mineral group: Al-hydroxids (gibbsite)-->
+		        <name>GibbOH</name>
+                <site_density>2.31</site_density>
+                <specific_surface_area>0.11</specific_surface_area>
+                <mass>53</mass>
+            </site>
+            <site>
+                <!--Kao = Mineral group: 2-layer-clay minerals (kaolinite)-->
+		        <name>KaoOH</name>
+                <site_density>2.31</site_density>
+                <specific_surface_area>0.07</specific_surface_area>
+                <mass>159</mass>
+            </site>
+        </surface>
+        <knobs>
+            <max_iter>250</max_iter>
+            <relative_convergence_tolerance>1e-12</relative_convergence_tolerance>
+            <tolerance>1e-15</tolerance>
+            <step_size>100</step_size>
+            <scaling>0</scaling>
+        </knobs>
+    </chemical_system>
     <parameters>
         <parameter>
             <name>kappa</name>

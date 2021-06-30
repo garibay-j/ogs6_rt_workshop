@@ -423,9 +423,36 @@
             </variables>
         </output>
     </time_loop>
-	<chemical_system chemical_solver="Phreeqc">
-		
-	</chemical_system>
+    <chemical_system chemical_solver="Phreeqc">
+        <mesh>ReactiveDomain_exchange</mesh>
+        <database>phreeqc.dat</database>
+        <solution>
+            <temperature>25</temperature>
+            <pressure>1</pressure>
+            <pe>12.5</pe>
+            <components>
+                <component>Ca</component>
+                <component>Cl</component>
+                <component>K</component>
+                <component>N(5)</component>
+                <component>Na</component>
+            </components>
+            <charge_balance>pH</charge_balance>
+        </solution>
+		<exchange>
+			<exchange_site>
+				<ion_exchanging_species>X</ion_exchanging_species>
+				<molality>1.1e-3</molality>
+			</exchange_site>
+		</exchange>
+        <knobs>
+            <max_iter>500</max_iter>
+            <relative_convergence_tolerance>1e-12</relative_convergence_tolerance>
+            <tolerance>1e-15</tolerance>
+            <step_size>5</step_size>
+            <scaling>0</scaling>
+        </knobs>
+    </chemical_system>
     <parameters>
         <parameter>
             <name>c0_Ca</name>
@@ -500,6 +527,7 @@
         <parameter>
             <name>p_downstream_Neumann</name>
             <type>Constant</type>
+            <!-- vel: porosity * cell length / time step from Phreeqc original benchmark-->
             <value>-2.78e-4</value>
         </parameter>
     </parameters>
@@ -620,4 +648,48 @@
             </eigen>
         </linear_solver>
     </linear_solvers>
+    <test_definition>
+        <vtkdiff>
+            <regex>exchangeOutput_ts_[0-9]*_t_[0-9]*.000000.vtu</regex>
+            <field>pressure</field>
+            <absolute_tolerance>1e-6</absolute_tolerance>
+            <relative_tolerance>1e-10</relative_tolerance>
+        </vtkdiff>
+        <vtkdiff>
+            <regex>exchangeOutput_ts_[0-9]*_t_[0-9]*.000000.vtu</regex>
+            <field>Ca</field>
+            <absolute_tolerance>1e-10</absolute_tolerance>
+            <relative_tolerance>1e-16</relative_tolerance>
+        </vtkdiff>
+        <vtkdiff>
+            <regex>exchangeOutput_ts_[0-9]*_t_[0-9]*.000000.vtu</regex>
+            <field>Cl</field>
+            <absolute_tolerance>1e-10</absolute_tolerance>
+            <relative_tolerance>1e-16</relative_tolerance>
+        </vtkdiff>
+        <vtkdiff>
+            <regex>exchangeOutput_ts_[0-9]*_t_[0-9]*.000000.vtu</regex>
+            <field>H</field>
+            <absolute_tolerance>1e-10</absolute_tolerance>
+            <relative_tolerance>1e-16</relative_tolerance>
+        </vtkdiff>
+        <vtkdiff>
+            <regex>exchangeOutput_ts_[0-9]*_t_[0-9]*.000000.vtu</regex>
+            <field>K</field>
+            <absolute_tolerance>1e-10</absolute_tolerance>
+            <relative_tolerance>1e-16</relative_tolerance>
+        </vtkdiff>
+        <vtkdiff>
+            <regex>exchangeOutput_ts_[0-9]*_t_[0-9]*.000000.vtu</regex>
+            <field>N(5)</field>
+            <absolute_tolerance>1e-10</absolute_tolerance>
+            <relative_tolerance>1e-16</relative_tolerance>
+        </vtkdiff>
+        <vtkdiff>
+            <regex>exchangeOutput_ts_[0-9]*_t_[0-9]*.000000.vtu</regex>
+            <field>Na</field>
+            <absolute_tolerance>1e-10</absolute_tolerance>
+            <relative_tolerance>1e-16</relative_tolerance>
+        </vtkdiff>
+    </test_definition>
 </OpenGeoSysProject>

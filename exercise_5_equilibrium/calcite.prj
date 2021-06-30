@@ -146,6 +146,31 @@
                         </property>
                     </properties>
                 </phase>
+                <phase>
+                    <type>Solid</type>
+                    <components>
+                        <component>
+                            <name>Calcite</name>
+                            <properties>
+                                <property>
+                                    <name>molality</name>
+                                    <type>Constant</type>
+                                    <value>2.07e-4</value>
+                                </property>
+                            </properties>
+                        </component>
+                        <component>
+                            <name>Dolomite(dis)</name>
+                            <properties>
+                                <property>
+                                    <name>molality</name>
+                                    <type>Constant</type>
+                                    <value>1e-10</value>
+                                </property>
+                            </properties>
+                        </component>
+                    </components>
+                </phase>
             </phases>
             <properties>
                 <property>
@@ -305,6 +330,7 @@
                         </pair>
                     </timesteps>
                 </time_stepping>
+            </process>
             <!-- convergence criterion for component transport equation (Cl) -->
             <process ref="hc">
                 <nonlinear_solver>basic_picard</nonlinear_solver>
@@ -373,6 +399,39 @@
             </variables>
         </output>
     </time_loop>
+    <chemical_system chemical_solver="Phreeqc">
+        <mesh>calcite_ReactiveDomain</mesh>
+        <database>PSINA_12_07_110615_DAV_s.dat</database>
+        <solution>
+            <temperature>25</temperature>
+            <pressure>1</pressure>
+            <pe>4</pe>
+            <components>
+                <component>C(4)</component>
+                <component>Ca</component>
+                <component>Mg</component>
+                <component>Cl</component>
+            </components>
+            <charge_balance>pH</charge_balance>
+        </solution>
+        <equilibrium_reactants>
+            <phase_component>
+                <name>Calcite</name>
+                <saturation_index>0.0</saturation_index>
+            </phase_component>
+            <phase_component>
+                <name>Dolomite(dis)</name>
+                <saturation_index>0.0</saturation_index>
+            </phase_component>
+        </equilibrium_reactants>
+        <knobs>
+            <max_iter>100</max_iter>
+            <relative_convergence_tolerance>1e-12</relative_convergence_tolerance>
+            <tolerance>1e-15</tolerance>
+            <step_size>100</step_size>
+            <scaling>0</scaling>
+        </knobs>
+    </chemical_system>
     <parameters>
         <parameter>
             <name>kappa</name>
@@ -473,7 +532,7 @@
                     <mesh>calcite_downstream</mesh>
                     <type>Neumann</type>
                     <parameter>p_downstream_Neumann</parameter>
-                <boundary_condition>
+                </boundary_condition>
             </boundary_conditions>
         </process_variable>
         <process_variable>
