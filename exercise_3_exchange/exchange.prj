@@ -423,6 +423,9 @@
             </variables>
         </output>
     </time_loop>
+	<chemical_system chemical_solver="Phreeqc">
+		
+	</chemical_system>
     <parameters>
         <parameter>
             <name>c0_Ca</name>
