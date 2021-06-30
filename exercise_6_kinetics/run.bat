@@ -1,0 +1,1 @@
+ogs 1d_isofrac.prj -o output

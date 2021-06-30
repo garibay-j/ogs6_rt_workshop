@@ -293,6 +293,43 @@
             </variables>
         </output>
     </time_loop>
+    <chemical_system chemical_solver="Phreeqc">
+        <mesh>1d_isofrac_ReactiveDomain</mesh>
+        <database>1d_isofrac_database.dat</database>
+        <solution>
+            <temperature>25</temperature>
+            <pressure>1</pressure>
+            <pe>4</pe>
+            <components>
+                <component>Synthetica</component>
+                <component>Syntheticb</component>
+            </components>
+        </solution>
+        <kinetic_reactants>
+            <kinetic_reactant>
+                <name>Productd</name>
+            </kinetic_reactant>
+        </kinetic_reactants>
+        <rates>
+            <rate>
+                <kinetic_reactant>Productd</kinetic_reactant>
+                <expression>
+                    <statement>Km = 10</statement>
+                    <statement>U = 1e-3</statement>
+                    <statement>rate = U * TOT("Synthetica") / (Km + TOT("Syntheticb"))</statement>
+                    <statement>moles = - rate * TIME</statement>
+                    <statement>save moles</statement>
+                </expression>
+            </rate>
+        </rates>
+        <knobs>
+            <max_iter>100</max_iter>
+            <relative_convergence_tolerance>1e-12</relative_convergence_tolerance>
+            <tolerance>1e-15</tolerance>
+            <step_size>100</step_size>
+            <scaling>0</scaling>
+        </knobs>
+    </chemical_system>
     <parameters>
         <parameter>
             <name>kappa</name>
